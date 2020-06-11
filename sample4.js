@@ -35,7 +35,10 @@ key2c = {
     'j': 'F2#',
     'm': 'G2',
     'k': 'G2#',
-    ',': 'A3'
+    ',': 'A3',
+    'l': 'A3#',
+    '.': 'B3',
+    '/': 'C3'
 }
 
 function keydown(e){
@@ -86,7 +89,7 @@ function setkey(c,freq){
 	gain[`${c}${s}`] = new GainNode(audioctx);
 	gain[`${c}${s}`].gain.value = 0.0
 	osc[`${c}${s}`] = new OscillatorNode(audioctx);
-	osc[`${c}${s}`].frequency.value = freq * (2 ** Number(s)) / 16.0
+	osc[`${c}${s}`].frequency.value = freq * (4 ** Number(s)) / 16.0
 	osc[`${c}${s}`].connect(gain[`${c}${s}`]).connect(audioctx.destination);
 	osc[`${c}${s}`].start();
     }
@@ -121,4 +124,8 @@ function Start() {
     setkey('G2', 440 * (2.0 ** (22 / 12.0)))
     setkey('G2#',440 * (2.0 ** (23 / 12.0)))
     setkey('A3', 440 * (2.0 ** (24 / 12.0)))
+    setkey('A3#',440 * (2.0 ** (25 / 12.0)))
+    setkey('B3', 440 * (2.0 ** (26 / 12.0)))
+    setkey('C3', 440 * (2.0 ** (27 / 12.0)))
+    setkey('C3#',440 * (2.0 ** (28 / 12.0)))
 }
