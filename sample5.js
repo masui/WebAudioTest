@@ -4,8 +4,6 @@ $(function() {
     $('body').on('keyup',keyup)
 });
 
-suffixes = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-
 keys = [
     'q', '2', 'w', 'e', '4', 'r', '5', 't', 'y', '7', 'u', '8', 'i', '9', 'o', 'p',
     'z', 's', 'x', 'c', 'f', 'v', 'g', 'b', 'n', 'j', 'm', 'k', ',', 'l', '.', '/'
@@ -27,16 +25,16 @@ function key2c(key){
 function keydown(e){
     var c = key2c(e.key)
     if(c){
-	for (var s of suffixes){
-	    gain[`${c}${s}`].gain.value = keygain(osc[`${c}${s}`].frequency.value)
+	for(var s=0;s<9;s++){
+	    gain[c+s].gain.value = keygain(osc[c+s].frequency.value)
 	}
     }
 }
 function keyup(e){
     var c = key2c(e.key)
     if(c){
-	for (var s of suffixes){
-	    gain[`${c}${s}`].gain.value = 0.0
+	for(var s=0;s<9;s++){
+	    gain[c+s].gain.value = 0.0
 	}
     }
 }
@@ -51,13 +49,13 @@ function keyhandler(e){
     var c = e.target.id
 
     if(e.type == 'mousedown'){
-	for (var s of suffixes){
-	    gain[`${c}${s}`].gain.value = keygain(osc[`${c}${s}`].frequency.value)
+	for(var s=0;s<9;s++){
+	    gain[c+s].gain.value = keygain(osc[c+s].frequency.value)
 	}
     }
     if(e.type == 'mouseup'){
-	for (var s of suffixes){
-	    gain[`${c}${s}`].gain.value = 0.0
+	for(var s=0;s<9;s++){
+	    gain[c+s].gain.value = 0.0
 	}
     }
 }
@@ -68,13 +66,13 @@ function setkey(c,freq){
 	.on('mouseup',keyhandler)
 	.attr('id',c)
     $('body').append($('<span> </span>'))
-    for (var s of suffixes){
-	gain[`${c}${s}`] = new GainNode(audioctx);
-	gain[`${c}${s}`].gain.value = 0.0
-	osc[`${c}${s}`] = new OscillatorNode(audioctx);
-	osc[`${c}${s}`].frequency.value = freq * (4 ** Number(s)) / 16.0
-	osc[`${c}${s}`].connect(gain[`${c}${s}`]).connect(audioctx.destination);
-	osc[`${c}${s}`].start();
+    for(var s=0;s<9;s++){
+	gain[c+s] = new GainNode(audioctx);
+	gain[c+s].gain.value = 0.0
+	osc[c+s] = new OscillatorNode(audioctx);
+	osc[c+s].frequency.value = freq * (4 ** Number(s)) / 16.0
+	osc[c+s].connect(gain[c+s]).connect(audioctx.destination);
+	osc[c+s].start();
     }
 }
 
