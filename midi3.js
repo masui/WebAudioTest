@@ -1,4 +1,6 @@
-// 福野氏の記事 https://fukuno.jig.jp/1868
+//
+// 2オクターブ版の無限音階をMIDIキーボードで演奏
+//
 
 $(function() {
     midiStart()
