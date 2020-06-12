@@ -4,7 +4,8 @@
 
 $(function() {
     midiStart()
-    $('#start').on('click',Start)
+    //$('#start').on('click',Start)
+    $('body').on('click',Start)
 });
 
 async function midiStart(){
@@ -40,7 +41,7 @@ async function midiStart(){
     
 function keygain(freq){
     freq = Number(freq)
-    var l = (Math.log(freq) - Math.log(440)) / Math.log(2)
+    var l = (Math.log(freq) - Math.log(220)) / Math.log(2)
     return 1 / 2 ** Math.abs(l)
 }
 
@@ -51,11 +52,11 @@ function Start(){
     for(var note=45;note<45+24;note++){
 	for(var s=0;s<9;s++){
 	    var id = `${note}-${s}`
-    	    var freq = 440 * (2.0 ** ((note-45) / 12.0))
+    	    var freq = 220 * (2.0 ** ((note-45) / 12.0))
 	    gain[id] = new GainNode(audioctx);
 	    gain[id].gain.value = 0.0
 	    osc[id] = new OscillatorNode(audioctx);
-	    osc[id].frequency.value = freq * (4 ** Number(s)) / 16.0
+	    osc[id].frequency.value = freq * (4 ** Number(s)) / 16.0 // + s * 2
 	    osc[id].connect(gain[id]).connect(audioctx.destination);
 	    osc[id].start();
 	}
